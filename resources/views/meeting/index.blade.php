@@ -7,18 +7,14 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="">
+        <div class="mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden row">
                 <div class="col-md-2 col-lg-2 ">
                     <x-sidebar></x-sidebar>
                 </div>
                 <div class="col-lg-10 row my-4">
                     <div class="col-md-9">
-                        <div class="p-6 text-gray-900 d-flex justify-content-end">
-
-
-                        </div>
                         @if (isset($meetings))
                             {{ $meetings->count() }} meetings found.
                         @else

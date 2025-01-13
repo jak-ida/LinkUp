@@ -22,8 +22,8 @@
             </ul>
         </div>
     @endif
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="">
+        <div class="mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden row">
                 <div class="col-md-2 col-lg-2 ">
                     <x-sidebar></x-sidebar>

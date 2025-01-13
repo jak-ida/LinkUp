@@ -22,8 +22,8 @@
             </ul>
         </div>
     @endif
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="">
+        <div class="mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden row">
                 <div class="col-md-2 col-lg-2 ">
                     <x-sidebar></x-sidebar>
@@ -79,7 +79,7 @@
                                 <div class="mb-3 d-flex gap-2 align-items-center w-50">
                                     <label for="date" class="form-label">Date:</label>
                                     <input type="date" class="form-control" id="date" name="date"
-                                        required>
+                                    min="{{ \Carbon\Carbon::now()->toDateString() }}" required>
                                 </div>
                             <!-- Start Time -->
                             <div class="d-flex gap-4">

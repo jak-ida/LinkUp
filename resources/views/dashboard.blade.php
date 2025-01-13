@@ -7,18 +7,15 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="">
+        <div class="mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden row">
                 <div class="col-md-2 col-lg-2 ">
                     <x-sidebar></x-sidebar>
                 </div>
                 <div class="col-lg-10 row my-4">
                     <div class="col-md-9">
-                        <div class="p-6 text-gray-900 d-flex justify-content-end">
-
-
-                        </div>
+                        
                         {{-- @if (isset($meetings))
                             {{ $meetings->count() }} meetings found.
                         @else
@@ -55,7 +52,7 @@
                                 </div>
                                 <div class="col-md-3 d-grid justify-content-end align-items-start my-4">
                                     <a href="{{ route('meeting.show', $meeting->id) }}" class="btn-prime"> View Details</a>
-                                    <hr class="w-75 mx-auto blue2">
+                                    <hr class="w-75 mx-auto blue2 my-2">
                                     @if ($meeting->host_id === Auth::id())
                                         <a class="btn btn-secondary py-1"
                                             href="{{ route('meeting.delete', $meeting->id) }}" style="font-size: .8rem">

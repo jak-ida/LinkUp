@@ -35,21 +35,22 @@ class MeetingController extends Controller
         return view('dashboard', compact('meetings'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $users = User::select('id', 'name')->get();
         $user = Auth::user();
 
         // Assuming the user has a 'contacts' relationship
         $contacts = $user->contacts;
-        if (!request()->has('code')) {
+
+        if (!$request->has('code')) {
             // Store return URL in session
             session(['zoom_return_url' => 'create']);
             return $this->get_oauth_step_1();
         }
 
         // Get token after redirect
-        $token = $this->get_oauth_step_2(request()->code);
+        $token = $this->get_oauth_step_2($request->code);
         session(['zoom_token' => $token['access_token']]);
 
         return view('meeting.create', compact('users', 'contacts'));
@@ -302,16 +303,17 @@ class MeetingController extends Controller
     // }
 
     private function get_oauth_step_1()
-    {
+    { //dd('1');
         $redirectURL = 'http://localhost/dashboard/linkUp/public/create';
-        return redirect()->away("https://zoom.us/oauth/authorize?client_id=YRm9cLlZQYWFWYMNOvYVaA&redirect_uri={$redirectURL}&response_type=code&scope=&state=xyz");
+        $clientID     = "YRm9cLlZQYWFWYMNOvYVaA";
+        return redirect()->away("https://zoom.us/oauth/authorize?client_id={$clientID}&redirect_uri={$redirectURL}&response_type=code&scope=&state=xyz");
 
         //++++++++++++++++++++++++++++++++++++++++++++++++
         //++++++++++++++++++++++++++++++++++++++++++++++++
     //     $redirectURL  = 'http://localhost/dashboard/linkUp/public/create';
     //     $authorizeURL = 'https://zoom.us/oauth/authorize';
     //     //+++++++++++++++++++++++++++++++++++++++++++++++++++
-    //     $clientID     = "YRm9cLlZQYWFWYMNOvYVaA";
+    //
     //     //++++++++++++++++++++++++++++++++++++++++++++++++++
     //     $authURL = $authorizeURL . '?client_id=' . $clientID . '&redirect_uri=' . $redirectURL . '&response_type=code&scope=&state=xyz';
 
@@ -320,12 +322,12 @@ class MeetingController extends Controller
     }
 
     private function get_oauth_step_2($code)
-    {
+    {  //dd($code);
         // Set the required variables
         $tokenURL    = 'https://zoom.us/oauth/token';
         $redirectURL = 'http://localhost/dashboard/linkUp/public/create';
         $clientID    = "YRm9cLlZQYWFWYMNOvYVaA";
-        $clientSecret = "6uCVM6VSIlGeerMrHYqj4X509wiPdLOx";
+        $clientSecret = "bD1mQj9W3aqkkxQIvBkzIbtGutQWA9rL";
 
         // Encode client_id and client_secret in Base64 for the Authorization header
         $authHeader = base64_encode("$clientID:$clientSecret");
@@ -363,10 +365,11 @@ class MeetingController extends Controller
 
         // Decode and return the response
         $response = json_decode($response, true);
-
+        //dd($postFields);
         // Optionally handle Zoom API-specific errors here
         if (isset($response['error'])) {
             throw new \Exception("Zoom API Error: " . implode(',', $response));
+            //dd('Other Doc');
         }
 
         return $response;
